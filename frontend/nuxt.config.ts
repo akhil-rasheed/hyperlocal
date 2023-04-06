@@ -7,4 +7,8 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
+  modules: ["nuxt-quasar-ui"],
+  quasar: {
+    /* */
+  },
 });

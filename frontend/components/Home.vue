@@ -1,20 +1,42 @@
 <template>
   <div
-    class="text-white text-lg font-bold font-sans flex flex-col w-full h-screen bg-black items-center justify-center"
+    class="bg-black w-full h-screen flex flex-row items-center justify-center"
   >
     <img src="~/assets/img/logo.png" />
-    <n-button>Start experiencing nearby</n-button>
+    <div
+      class="bg-teal-900 w-3/4 h-full rounded-xl flex flex-col items-center p-8"
+    >
+      <q-btn
+        rounded
+        outlined
+        color="black"
+        size="large"
+        label="Announce something"
+        @click="locatorButtonPressed"
+      />
+    </div>
   </div>
 </template>
 
 <script>
-import { NButton } from "naive-ui";
 export default {
-  components: {
-    NButton,
+  data() {
+    return {
+      location: "",
+    };
   },
-  setup() {
-    return {};
+  methods: {
+    locatorButtonPressed() {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          console.log(position.coords.latitude);
+          console.log(position.coords.longitude);
+        },
+        (error) => {
+          console.log(error.message);
+        }
+      );
+    },
   },
 };
 </script>
