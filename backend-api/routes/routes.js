@@ -1,8 +1,8 @@
-const express = require("express");
+import express from "express";
 
 const router = express.Router();
 
-module.exports = router;
+
 
 router.post("/post", (req, res) => {
   res.send("Post API");
@@ -23,3 +23,6 @@ router.patch("/update/:id", (req, res) => {
 router.delete("/delete/:id", (req, res) => {
   res.send("Delete by ID API");
 });
+
+
+export default router;
