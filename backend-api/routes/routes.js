@@ -4,13 +4,8 @@ const router = express.Router();
 
 
 
-router.post("/post", (req, res) => {
-  res.send("Post API");
-});
 
-router.get("/getAll", (req, res) => {
-  res.send("Get All API");
-});
+
 
 router.get("/getOne/:id", (req, res) => {
   res.send("Get by ID API");

@@ -5,7 +5,9 @@ import helmet from "helmet" ;
 import morgan from "morgan";
 import dotenv from "dotenv";
 import routes from "./routes/routes.js";
+import newsRoutes from "./routes/newsRoute.js";
 import connectDB from "./config/db.js";
+import authRoutes from "./routes/authRoute.js"
 
 
 //configure env
@@ -32,7 +34,15 @@ app.use(bodyParser.urlencoded({extended:false}));
 app.use(cors());
 app.use(morgan("combined"));
 
+
+//routes
 app.use("/api", routes);
+
+//new routes
+app.use("/api",newsRoutes);
+
+//auth routes
+app.use("/api/v1/auth",authRoutes);
 
 app.get("/", (req, res) => {
   res.send(posts);
