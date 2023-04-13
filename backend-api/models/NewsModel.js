@@ -31,6 +31,7 @@ const newsSchema = new mongoose.Schema({
         type:{type:String,required:true},
         coordinates:[]
     },
-});
+
+},{expires:1,expireAfterSeconds:60});
 newsSchema.index({location:"2dsphere"});
 export default mongoose.model('news',newsSchema);

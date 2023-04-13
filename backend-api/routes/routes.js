@@ -6,9 +6,6 @@ const router = express.Router();
 
 
 
-router.get("/getAll", (req, res) => {
-  res.send("Get All API");
-});
 
 router.get("/getOne/:id", (req, res) => {
   res.send("Get by ID API");
