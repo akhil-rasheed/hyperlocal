@@ -97,3 +97,18 @@ export const loginController = async(req,res)=> {
         )
     }
 };
+
+export const deleteUser= async (req,res)=>{
+    if(req.body.userId === req.params.id ){
+        try{
+            await userModel.findByIdAndDelete({_id: req.params.id});
+            res.status(200).send("Account has been deleted");
+
+
+        }catch(error){
+            return res.status(500).send(error);
+        }
+    } else {
+        return res.status(403).send("You can only delete your account");
+    }
+}
