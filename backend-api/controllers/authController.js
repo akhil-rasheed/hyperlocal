@@ -1,8 +1,6 @@
 import userModel from "../models/userModel.js";
 import { comparePassword, hashPassword } from "../helpers/authHelper.js";
 import JWT from "jsonwebtoken";
-import crypto from "crypto";
-
 
 export const registerController = async(req,res)=> {
    try{ 
@@ -112,3 +110,4 @@ export const deleteUser= async (req,res)=>{
         return res.status(403).send("You can only delete your account");
     }
 }
+

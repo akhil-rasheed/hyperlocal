@@ -1,15 +1,19 @@
 import express from "express";
 import bodyParser from "body-parser";
-import {createNews,NewsNearBy,updateNews,deleteNews,upvotesNews, downvotesNews} from "../controllers/newsController.js"
+
+
+import {createNews,NewsNearBy,updateNews,deleteNews,upvotesNews, downvotesNews,allNews} from "../controllers/newsController.js"
 import { model } from "mongoose";
 import { requireSignIn,isAdmin} from "../middlewares/authMiddleware.js";
 
 const newsRouter = express();
 
 newsRouter.use(bodyParser.json());
-newsRouter.use(bodyParser.urlencoded({extended:true}));
+newsRouter.use(bodyParser.urlencoded({ extended: true }));
 
 //Api to create news
+newsRouter.get("/getAll", allNews);
+
 newsRouter.post('/post-news',requireSignIn,createNews);
 
 //Api to getAll nearby news
