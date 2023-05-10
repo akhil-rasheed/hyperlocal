@@ -1,11 +1,9 @@
 import * as mongoose from "mongoose";
 
 const newsSchema = new mongoose.Schema({
-    creator:{
+    userId:{
         type:String,
         required:true,
-        min:3,
-        maxlength:30,
     },
     title:{
             type:String,
@@ -15,13 +13,28 @@ const newsSchema = new mongoose.Schema({
     },
     desc:{
             type:String,
-            maxlength:200,
+            maxlength:300,
     },
 
-    // tags: [String],
-    likecount:{
+    tags: {
+        type:Array,
+        default:[],
+    },
+    upvotes:{
+        type:Array,
+        default:[]
+    },
+    upvotescount:{
         type: Number,
         default:0,
+    },
+    downvotes:{
+        type:Array,
+        default:[],
+    },
+    downvotescount:{
+        type:Number,
+        default:[],
     },
     createdAt:{
         type:Date,
