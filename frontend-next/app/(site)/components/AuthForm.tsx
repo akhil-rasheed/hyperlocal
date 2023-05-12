@@ -21,7 +21,7 @@ export const AuthForm = () => {
 
   useEffect(() => {
     if (session?.status === "authenticated") {
-      router.push("/users");
+      router.push("/home");
     }
   }, [session?.status, router]);
 
@@ -63,7 +63,7 @@ export const AuthForm = () => {
 
           if (callback?.ok && !callback?.error) {
             toast.success("Login Successful!");
-            router.push("/users");
+            router.push("/home");
           }
         })
         .finally(() => setIsLoading(false));
