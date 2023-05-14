@@ -21,6 +21,7 @@ model User {
   updatedAt DateTime @updatedAt
 
   accounts Account[]
+  posts Post[]
   
 }
 
@@ -41,5 +42,19 @@ model Account {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
+}
+
+model Post{
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  title String
+  slug String @unique
+  image String
+  content String
+  
+  
+  author User @relation(fields: [authorId], references: [id])
+  authorId String @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 

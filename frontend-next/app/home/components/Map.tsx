@@ -1,34 +1,26 @@
 "use client";
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 
-function MapContainer() {
+//useeffect hook to fetch location
+
+const MapContainer = () => {
+  const [center, setCenter] = useState({ lat: 0, lng: 0 });
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      setCenter({
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+      });
+    });
+  }, []);
+
   const mapStyles = {
     width: "100%",
     height: "400px",
   };
 
-  const [center, setCenter] = useState(fetchLocation());
-
-  function fetchLocation() {
-    const center = {
-      lat: 37.7749, // Default latitude
-      lng: -122.4194, // Default longitude
-    };
-
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        center.lat = position.coords.latitude;
-        center.lng = position.coords.longitude;
-      },
-      (error) => {
-        console.log(error.message);
-      }
-    );
-
-    return center;
-  }
   const mapsApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
   const options = {
     mapId: "611b6a559ee275bd", //here comes your map id
@@ -52,6 +44,6 @@ function MapContainer() {
       </GoogleMap>
     </LoadScript>
   );
-}
+};
 
 export default MapContainer;

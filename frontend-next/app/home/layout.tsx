@@ -1,10 +1,12 @@
 import Sidebar from "../components/sidebar/Sidebar";
-
-export default async function UsersLayout({
+import getCurrentUser from "../actions/getCurrentUser";
+export default async function HomeLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const currentUser = await getCurrentUser();
+
   return (
     // @ts-expect-error Server Component
     <Sidebar>

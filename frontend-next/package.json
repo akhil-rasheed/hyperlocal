@@ -20,6 +20,7 @@
     "autoprefixer": "10.4.14",
     "axios": "^1.4.0",
     "bcrypt": "^5.1.0",
+    "bcryptjs-react": "^2.4.6",
     "clsx": "^1.2.1",
     "eslint": "8.40.0",
     "eslint-config-next": "13.4.1",
@@ -35,6 +36,8 @@
     "typescript": "5.0.4"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/bcryptjs": "^2.4.2",
     "@types/google.maps": "^3.53.1",
     "prisma": "^4.13.0"
   }
