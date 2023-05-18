@@ -4,6 +4,9 @@ import userModel from "../models/userModel.js";
 export const createNews = async (req, res) => {
   try {
     console.log(req.body);
+    const imageFilename = req.file ? req.file.filename : null;
+    console.log(imageFilename);
+    const imageUrl = `http://localhost:8080/uploads/${imageFilename}`;
     // const User = await userModel.findOne({_id:req.body._id});
     if (!req.body.latitude || !req.body.longitude) {
       res.status(401).send({
@@ -23,6 +26,7 @@ export const createNews = async (req, res) => {
             parseFloat(req.body.latitude),
           ],
         },
+        imageUrl: imageUrl ? imageUrl : null,
       }).save();
       res
         .status(200)

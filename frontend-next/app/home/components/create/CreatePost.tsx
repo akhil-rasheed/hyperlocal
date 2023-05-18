@@ -6,6 +6,7 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { Input } from "@/app/components/inputs/Input";
 import { Button } from "@/app/components/Button";
 import axios from "axios";
+import ImageUploader from "./ImageUploader";
 
 interface CreatePostProps {
   user: User;
@@ -24,7 +25,7 @@ const CreatePost: React.FC<CreatePostProps> = ({ user }) => {
   });
 
   const [isLoading, setIsLoading] = useState(false);
-
+  const [file, setFile] = useState<File>();
   const [center, setCenter] = useState({ lat: 0, lng: 0 });
 
   useEffect(() => {
@@ -38,14 +39,15 @@ const CreatePost: React.FC<CreatePostProps> = ({ user }) => {
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
-    const postSubmitData = {
-      userId: user.id,
-      name: user.name,
-      ...data,
-      longitude: center.lng,
-      latitude: center.lat,
-    };
 
+    const postSubmitData = new FormData();
+    postSubmitData.append("userId", user.id);
+    postSubmitData.append("name", user.name!);
+    postSubmitData.append("title", data.title);
+    postSubmitData.append("desc", data.desc);
+    postSubmitData.append("longitude", center.lng.toString());
+    postSubmitData.append("latitude", center.lat.toString());
+    postSubmitData.append("image", file!);
     console.log(postSubmitData);
 
     axios
@@ -59,8 +61,9 @@ const CreatePost: React.FC<CreatePostProps> = ({ user }) => {
     setIsLoading(false);
   };
   return (
-    <div className="w-2/3 m-10  rounded-md p-10 bg-white">
+    <div className="w-2/3 m-10  rounded-md p-10 bg-white/75">
       <form className="space-y-6  text-white" onSubmit={handleSubmit(onSubmit)}>
+        <ImageUploader setFile={setFile} />
         <Input
           id="title"
           label="Give your post a title!"

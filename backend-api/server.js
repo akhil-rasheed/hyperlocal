@@ -28,6 +28,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(morgan("combined"));
 app.use(cors());
+app.use("/uploads", express.static("uploads"));
 
 //routes
 

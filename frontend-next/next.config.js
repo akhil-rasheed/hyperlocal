@@ -5,6 +5,7 @@ const nextConfig = {
       "res.cloundinary.com",
       "avatars.githubusercontent.com",
       "lh3.googleusercontent.com",
+      "localhost",
     ],
   },
 };

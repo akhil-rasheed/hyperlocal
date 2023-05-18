@@ -45,6 +45,7 @@ const newsSchema = new mongoose.Schema(
       type: { type: String, required: true },
       coordinates: [],
     },
+    imageUrl: { type: String, required: false },
   },
   { expires: 1, expireAfterSeconds: 3600 }
 );
