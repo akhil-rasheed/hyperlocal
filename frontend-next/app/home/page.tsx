@@ -7,7 +7,6 @@ import getCurrentUser from "@/app/actions/getCurrentUser";
 
 async function Home() {
   const currentUser = await getCurrentUser();
-  console.log("hi hello", currentUser);
   return (
     <div className="hidden h-full lg:flex lg:flex-row">
       <div className="mx-20 w-1/2">

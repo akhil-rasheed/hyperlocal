@@ -1,12 +1,13 @@
 "use client";
 import { useState, useEffect } from "react";
 import getPosts from "../../actions/getPosts";
-
+import Post from "./Post";
 interface Post {
   _id: number;
-  creator: string;
+  username: string;
   desc: string;
   title: string;
+  createdAt: Date;
 }
 
 const Nearby = () => {
@@ -22,12 +23,14 @@ const Nearby = () => {
     <div className="p-20 bg-gray-100 justify-center items-center w-full h-1/2 overflow-y-scroll">
       {posts.map((post) => {
         return (
-          <div
-            key={post?._id}
-            className="bg-gray-300/50 p-6 m-4 font-thin text-xl rounded-xl w-fit"
-          >
-            <span className="font-bold">{post?.creator} </span> {post?.desc}
-          </div>
+          <Post
+            key={post._id}
+            id={post._id}
+            username={post.username}
+            title={post.title}
+            desc={post.desc}
+            date={post.createdAt}
+          />
         );
       })}
     </div>

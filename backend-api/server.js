@@ -26,11 +26,10 @@ app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cors());
 app.use(morgan("combined"));
+app.use(cors());
 
 //routes
-app.use("/api", routes);
 
 //new routes
 app.use("/api", newsRoutes);

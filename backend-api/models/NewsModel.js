@@ -6,6 +6,7 @@ const newsSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    username: { type: String, required: true },
     title: {
       type: String,
       maxlength: 60,
@@ -34,7 +35,7 @@ const newsSchema = new mongoose.Schema(
     },
     downvotescount: {
       type: Number,
-      default: [],
+      default: 0,
     },
     createdAt: {
       type: Date,
