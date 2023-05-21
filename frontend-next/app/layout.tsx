@@ -2,6 +2,7 @@ import AuthContext from "./context/AuthContext";
 import ToasterContext from "./context/ToasterContext";
 import "./globals.css";
 import { Inter } from "next/font/google";
+import Head from "next/head";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,6 +18,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <Head>
+        <meta property="og:title" content="Hyperlocal: Connect" key="title" />
+      </Head>
+      <head>
+        <title>Hyperlocal: Connect</title>
+      </head>
       <body className={inter.className}>
         <AuthContext>
           <ToasterContext />
