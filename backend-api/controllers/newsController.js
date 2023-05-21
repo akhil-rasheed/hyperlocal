@@ -5,8 +5,9 @@ export const createNews = async (req, res) => {
   try {
     console.log(req.body);
     const imageFilename = req.file ? req.file.filename : null;
-    console.log(imageFilename);
-    const imageUrl = `http://localhost:8080/uploads/${imageFilename}`;
+    const imageUrl = imageFilename
+      ? `https://hyperlocal-backend.fly.dev/uploads/${imageFilename}`
+      : null;
     // const User = await userModel.findOne({_id:req.body._id});
     if (!req.body.latitude || !req.body.longitude) {
       res.status(401).send({
@@ -26,7 +27,7 @@ export const createNews = async (req, res) => {
             parseFloat(req.body.latitude),
           ],
         },
-        imageUrl: imageUrl ? imageUrl : null,
+        imageUrl,
       }).save();
       res
         .status(200)

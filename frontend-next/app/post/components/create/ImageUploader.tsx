@@ -8,8 +8,10 @@ interface ImageUploaderProps {
 const ImageUploader: React.FC<ImageUploaderProps> = ({ setFile }) => {
   const [selectedImage, setSelectedImage] = useState<string>();
 
-  const handleImageUpload = (event: Event) => {
-    const file = event!.target!.files[0];
+  const handleImageUpload = (e: Event) => {
+    const inputElement = e.target as HTMLInputElement;
+    const fileList = inputElement.files;
+    const file = fileList[0];
     setFile(file);
     setSelectedImage(URL.createObjectURL(file));
   };
@@ -17,12 +19,14 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ setFile }) => {
   return (
     <div>
       {!selectedImage && (
-        <label className="flex justify-center rounded-md px-3 py-2 text-sm font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-green-500 w-1/3 hover:cursor-pointer ">
+        <label className="flex justify-center rounded-md px-3 py-2 text-sm font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-rich-black lg:w-2/3 hover:cursor-pointer ">
           <input
             className="hidden"
             type="file"
             accept="image/*"
-            onChange={() => handleImageUpload}
+            // @ts-expect-error Input error
+
+            onChange={(e: Event) => handleImageUpload(e)}
           />
           Upload Image
         </label>
@@ -41,7 +45,9 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ setFile }) => {
             className="hidden"
             type="file"
             accept="image/*"
-            onChange={() => handleImageUpload}
+            // @ts-expect-error Input error
+
+            onChange={(e: Event) => handleImageUpload(e)}
           />
         </label>
       )}

@@ -35,7 +35,7 @@ export const Button: React.FC<ButtonProps> = ({
           "bg-rose-500 hover:bg-rose-600 focus-visible:outline-rose-600",
         !secondary &&
           !danger &&
-          "bg-green-500 hover:bg-green-600 focus-visible:outline-600"
+          "bg-rich-black text-ultra-violet ring-ultra-violet ring-2  hover:shadow-black hover:shadow-md hover:ring-0 hover:text-mint-green focus-visible:outline-600"
       )}
     >
       {children}

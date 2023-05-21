@@ -26,7 +26,7 @@ const Post: React.FC<PostProps> = ({
     const now = new Date();
 
     // Calculate the time difference in milliseconds
-    const timeDifference = now - date;
+    const timeDifference = now.getTime() - date.getTime(); //
 
     // Check if the timestamp is within the last week
     if (timeDifference < 7 * 24 * 60 * 60 * 1000) {
@@ -61,7 +61,7 @@ const Post: React.FC<PostProps> = ({
       return `Last ${dayOfWeek}`;
     }
 
-    const options = {
+    const options: Intl.DateTimeFormatOptions = {
       year: "numeric",
       month: "long",
       day: "numeric",
@@ -77,20 +77,20 @@ const Post: React.FC<PostProps> = ({
   return (
     <div
       key={_id}
-      className=" bg-white/75 my-8 font-thin text-xl rounded-lg w-full flex flex-col text-white "
+      className=" bg-mint-green my-8 font-thin text-xl rounded-lg w-full max-w-xl flex flex-col text-white hover:ring-2 hover:cursor-pointer hover:ring-rich-black hover:shadow-lg hover:shadow-black  "
     >
-      <div className="pt-2 pl-4 bg-white rounded-t-lg ">
+      <div className="pt-2 pl-4 bg-ultra-violet rounded-t-lg ">
         <div className="w-full flex justify-start ">
           {imageUrl && <img src={imageUrl} className="h-40 mb-4" />}
         </div>
-        <div className="flex flex-row w-full justify-between rounded-t-lg bg-white pt-2 pb-2  pr-4">
+        <div className="flex flex-row w-full justify-between rounded-t-lg bg-ultra-violet pt-2 pb-2  pr-4">
           <span className=" text-lg font-bold text-teal-900 ">{title} </span>
 
           <div className="flex flex-col">
             <span className="text-sm text-white bg-gray-700 px-2 rounded-full">
               {username}
             </span>
-            <span className="text-xs text-gray-700 font-thin text-center ">
+            <span className="text-xs text-mint-green font-thin text-center ">
               {getReadableTime(createdAt)}
             </span>
           </div>

@@ -10,6 +10,12 @@ import { toast } from "react-hot-toast";
 import axios from "axios";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { Inter } from "next/font/google";
+
+const inter = Inter({
+  weight: "400",
+  subsets: ["latin"],
+});
 
 type Variant = "LOGIN" | "REGISTER";
 
@@ -84,79 +90,81 @@ export const AuthForm = () => {
       .finally(() => setIsLoading(false));
   };
   return (
-    <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-      <div
-        className="bg-white
+    <main className={inter.className}>
+      <div className=" sm:mx-auto sm:w-full sm:max-w-md font-extralight">
+        <div
+          className="bg-rich-black
+                   text-mint-green
                     px-4
                     py-8 
                     shadow
                     sm:rounded-lg
+
                     sm:px-10"
-      >
-        <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
-          {variant === "REGISTER" && (
+        >
+          <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
             <Input
-              id="name"
-              label="Name"
+              id="email"
+              label="Email"
+              type="email"
               register={register}
               errors={errors}
               disabled={isLoading}
             />
-          )}
-          <Input
-            id="email"
-            label="Email"
-            type="email"
-            register={register}
-            errors={errors}
-            disabled={isLoading}
-          />
-          <Input
-            id="password"
-            label="Password"
-            type="password"
-            register={register}
-            errors={errors}
-            disabled={isLoading}
-          />
-          <div>
-            <Button disabled={isLoading} fullWidth type="submit">
-              {variant === "LOGIN" ? "Sign in" : "Register"}
-            </Button>
-          </div>
-        </form>
-        <div className="mt-6">
-          <div className="relative">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-gray-300" />
+            {variant === "REGISTER" && (
+              <Input
+                id="name"
+                label="Username"
+                register={register}
+                errors={errors}
+                disabled={isLoading}
+              />
+            )}
+            <Input
+              id="password"
+              label="Password"
+              type="password"
+              register={register}
+              errors={errors}
+              disabled={isLoading}
+            />
+            <div>
+              <Button disabled={isLoading} fullWidth type="submit">
+                {variant === "LOGIN" ? "Sign in" : "Register"}
+              </Button>
             </div>
-            <div className="relative flex justify-center text-sm">
-              <span className="bg-white px-2 text-gray-500">
-                Or continue with
-              </span>
+          </form>
+          <div className="mt-6">
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-gray-300" />
+              </div>
+              <div className="relative flex justify-center text-sm">
+                <span className=" px-2 text-gray-500">Or continue with</span>
+              </div>
             </div>
-          </div>
 
-          <div className="mt-6 flex gap-2">
-            <AuthSocialButton
-              icon={BsGithub}
-              onClick={() => socialAction("github")}
-            />
-            <AuthSocialButton
-              icon={BsGoogle}
-              onClick={() => socialAction("google")}
-            />
+            <div className="mt-6 flex gap-2">
+              <AuthSocialButton
+                icon={BsGithub}
+                onClick={() => socialAction("github")}
+              />
+              <AuthSocialButton
+                icon={BsGoogle}
+                onClick={() => socialAction("google")}
+              />
+            </div>
           </div>
-        </div>
-        <div className="flex gap-2 justify-center text-sm mt-6 px-2 text-gray-500">
-          <div>
-            {variant === "LOGIN" ? "New to hyperlocal?" : "Already a user?"}
-          </div>
-          <div onClick={toggleVariant} className="underline cursor-pointer">
-            {variant === "LOGIN" ? "Create an account" : "Log in"}
+          <div className="flex gap-2 justify-center text-sm mt-6 px-2 text-gray-500">
+            <div>
+              {variant === "LOGIN" ? "New to hyperlocal?" : "Already a user?"}
+            </div>
+            <div onClick={toggleVariant} className="underline cursor-pointer">
+              {variant === "LOGIN" ? "Create an account" : "Log in"}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </main>
   );
 };

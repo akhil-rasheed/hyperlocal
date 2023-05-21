@@ -8,12 +8,7 @@ interface PostActionProps {
 
 const PostAction: React.FC<PostActionProps> = ({ user }) => {
   return (
-    <div className="h-full flex flex-col items-center justify-center w-full p-8">
-      <p className="text-white text-4xl font-bold ">
-        Welcome to hyperlocal,{" "}
-        <span className="text-green-500 whitespace-nowrap">{user?.name}</span>{" "}
-        start by making a post
-      </p>
+    <div className="h-full flex flex-col items-start lg:items-center p-4 justify-center w-full  lg:w-1/2 lg:p-8">
       <CreatePost user={user} />
     </div>
   );

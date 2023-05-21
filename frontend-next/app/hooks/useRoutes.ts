@@ -4,6 +4,7 @@ import { GrMapLocation } from "react-icons/gr";
 import { HiArrowLeftOnRectangle, HiUsers } from "react-icons/hi2";
 import { signOut } from "next-auth/react";
 import { CgCommunity } from "react-icons/cg";
+import { MdAddCircle } from "react-icons/md";
 
 const useRoutes = () => {
   const pathname = usePathname();
@@ -12,7 +13,7 @@ const useRoutes = () => {
     () => [
       {
         label: "Nearby",
-        href: "/nearby",
+        href: "/home",
         icon: GrMapLocation,
         active: pathname === "/nearby",
       },
@@ -22,6 +23,13 @@ const useRoutes = () => {
         icon: CgCommunity,
         active: pathname === "/community",
       },
+      {
+        label: "Post",
+        href: "/post",
+        icon: MdAddCircle,
+        active: pathname === "/post",
+      },
+
       {
         label: "Logout",
         onClick: () => signOut(),

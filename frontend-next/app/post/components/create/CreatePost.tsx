@@ -5,6 +5,8 @@ import { useCallback, useEffect, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { Input } from "@/app/components/inputs/Input";
 import { Button } from "@/app/components/Button";
+import { useRouter } from "next/navigation";
+
 import axios from "axios";
 import ImageUploader from "./ImageUploader";
 
@@ -13,6 +15,8 @@ interface CreatePostProps {
 }
 
 const CreatePost: React.FC<CreatePostProps> = ({ user }) => {
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -51,9 +55,10 @@ const CreatePost: React.FC<CreatePostProps> = ({ user }) => {
     console.log(postSubmitData);
 
     axios
-      .post(`http://localhost:8080/api/post-news`, postSubmitData)
+      .post(`https://hyperlocal-backend.fly.dev/api/post-news`, postSubmitData)
       .then(function (response) {
         console.log(response);
+        router.push("/home");
       })
       .catch(function (error) {
         console.log(error);
@@ -61,8 +66,10 @@ const CreatePost: React.FC<CreatePostProps> = ({ user }) => {
     setIsLoading(false);
   };
   return (
-    <div className="w-2/3 m-10  rounded-md p-10 bg-white/75">
+    <div className=" w-full  lg:w-2/3 lg:m-10  rounded-md p-8 lg:p-10 bg-ultra-violet">
       <form className="space-y-6  text-white" onSubmit={handleSubmit(onSubmit)}>
+        <p className="text-white/75 font-bold text-3xl  ">Create a post...</p>
+
         <ImageUploader setFile={setFile} />
         <Input
           id="title"

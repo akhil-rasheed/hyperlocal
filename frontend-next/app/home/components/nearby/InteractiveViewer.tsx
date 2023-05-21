@@ -22,7 +22,7 @@ const InteractiveViewer = () => {
     });
   }, []);
   return (
-    <div className="bg-white/50 w-1/2 h-2/3 overflow-y-auto scrollbar-hide">
+    <div className=" w-full max-w-4xl  h-full max-h-[900px] overflow-y-auto scrollbar-hide">
       <div className="sticky top-0">
         <Map posts={posts} />
       </div>

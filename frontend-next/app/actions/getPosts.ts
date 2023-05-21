@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:8080/api";
+const API_URL = "https://hyperlocal-backend.fly.dev/api";
 
 const fetchData = async () => {
   const url = `${API_URL}/getAll`;

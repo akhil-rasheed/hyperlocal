@@ -27,7 +27,7 @@ export const Input: React.FC<InputProps> = ({
   return (
     <div>
       <label
-        className="block text-sm font-medium text-gray-900 leading-6"
+        className="font-extralight block text-sm  text-white/75 leading-6"
         htmlFor={id}
       >
         {label}
@@ -40,7 +40,7 @@ export const Input: React.FC<InputProps> = ({
             disabled={disabled}
             {...register(id, { required })}
             className={clsx(
-              "form-input block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset placeholder:text-gray-400 ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-green-400 sm:text-sm sm:leading-6 ",
+              " font-extralight bg-white/75 form-input block w-full rounded-md border-0 py-1.5 text-rich-black shadow-sm  placeholder:text-gray-400 ring-gray-300 focus:ring-1 focus:ring-inset focus:ring-rich-black sm:text-sm sm:leading-6 ",
               errors[id] && "focus:ring-rose-500",
               disabled && "opacity-50 cursor-default"
             )}
@@ -52,7 +52,7 @@ export const Input: React.FC<InputProps> = ({
             disabled={disabled}
             {...register(id, { required })}
             className={clsx(
-              "form-input block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset placeholder:text-gray-400 ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-green-400 sm:text-sm sm:leading-6 ",
+              " bg-white/75 form-input block w-full rounded-md border-0 py-1.5 text-rich-black shadow-sm ring-1 ring-inset placeholder:text-gray-400 ring-ultra-violet focus:ring-2 focus:ring-inset focus:ring-rich-black sm:text-sm sm:leading-6 ",
               errors[id] && "focus:ring-rose-500",
               disabled && "opacity-50 cursor-default"
             )}
