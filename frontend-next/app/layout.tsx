@@ -9,7 +9,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata = {
   title: "Hyperlocal",
   description:
-    "Connect with things happeningright now. Explore local. Find your community.",
+    "Connect with things happening right now. Explore local. Find your community.",
 };
 
 export default function RootLayout({

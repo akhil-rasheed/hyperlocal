@@ -3,6 +3,7 @@ import { BiUpvote } from "react-icons/bi";
 import { BiDownvote } from "react-icons/bi";
 import { ImArrowDown } from "react-icons/im";
 import Image from "next/image";
+import getReadableTime from "@/app/actions/getReadableTime";
 
 interface PostProps {
   _id: number;
@@ -21,59 +22,6 @@ const Post: React.FC<PostProps> = ({
   createdAt,
   imageUrl,
 }) => {
-  function getReadableTime(isoTimestamp: Date) {
-    const date = new Date(isoTimestamp);
-    const now = new Date();
-
-    // Calculate the time difference in milliseconds
-    const timeDifference = now.getTime() - date.getTime(); //
-
-    // Check if the timestamp is within the last week
-    if (timeDifference < 7 * 24 * 60 * 60 * 1000) {
-      const daysOfWeek = [
-        "Sunday",
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
-      ];
-      const dayOfWeek = daysOfWeek[date.getUTCDay()];
-
-      // Check if the timestamp refers to the same day
-      if (
-        now.getUTCDate() === date.getUTCDate() &&
-        now.getUTCMonth() === date.getUTCMonth() &&
-        now.getUTCFullYear() === date.getUTCFullYear()
-      ) {
-        // Calculate the time difference in minutes and hours
-        const minutes = Math.floor(timeDifference / (1000 * 60));
-        const hours = Math.floor(timeDifference / (1000 * 60 * 60));
-
-        if (minutes < 60) {
-          return `${minutes} minute${minutes !== 1 ? "s" : ""} ago`;
-        } else {
-          return `${hours} hour${hours !== 1 ? "s" : ""} ago`;
-        }
-      }
-
-      return `Last ${dayOfWeek}`;
-    }
-
-    const options: Intl.DateTimeFormatOptions = {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      hour: "numeric",
-      minute: "numeric",
-      second: "numeric",
-      hour12: false,
-      timeZone: "UTC",
-    };
-
-    return date.toLocaleString("en-US", options);
-  }
   return (
     <div
       key={_id}
