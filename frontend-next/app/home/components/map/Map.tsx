@@ -28,7 +28,7 @@ const MapContainer = ({ posts }) => {
   const onUnmount = (circle) => {
     console.log("Circle onUnmount circle: ", circle);
   };
-  const mapsApiKey = process.env.GOOGLE_MAPS_API_KEY;
+  const mapsApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
   const options = {
     zoomControl: false,
