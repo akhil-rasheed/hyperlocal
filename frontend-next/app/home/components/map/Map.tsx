@@ -71,8 +71,7 @@ const MapContainer = ({ posts }) => {
           options={options}
         />
         {posts.map((post) => {
-          console.log(post.location.coordinates);
-          return (
+          return post.username?.length % 2 === 0 ? (
             <Marker
               key={post._id}
               position={{
@@ -80,7 +79,26 @@ const MapContainer = ({ posts }) => {
                 lng: post.location.coordinates[0],
               }}
               icon={{
-                url: "http://maps.google.com/mapfiles/ms/icons/green-dot.png",
+                url: "https://em-content.zobj.net/thumbs/160/twitter/322/soccer-ball_26bd.png",
+                scaledSize: new window.google.maps.Size(20, 20),
+              }}
+              options={{
+                clickable: true,
+              }}
+            />
+          ) : (
+            <Marker
+              key={post._id}
+              position={{
+                lat: post.location.coordinates[1],
+                lng: post.location.coordinates[0],
+              }}
+              icon={{
+                url: "https://em-content.zobj.net/thumbs/160/twitter/322/fire_1f525.png",
+                scaledSize: new window.google.maps.Size(20, 20),
+              }}
+              options={{
+                clickable: true,
               }}
             />
           );
