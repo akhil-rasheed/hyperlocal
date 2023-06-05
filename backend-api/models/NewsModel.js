@@ -39,7 +39,7 @@ const newsSchema = new mongoose.Schema(
     },
     createdAt: {
       type: Date,
-      default: Date.now,
+      default: Date.new,
     },
     location: {
       type: { type: String, required: true },

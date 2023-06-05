@@ -4,7 +4,8 @@ import { BiDownvote } from "react-icons/bi";
 import { ImArrowDown } from "react-icons/im";
 import Image from "next/image";
 import getReadableTime from "@/app/actions/getReadableTime";
-
+import ImageViewer from "react-simple-image-viewer";
+import { useState, useCallback } from "react";
 interface PostProps {
   _id: number;
   username: string;
@@ -22,6 +23,14 @@ const Post: React.FC<PostProps> = ({
   createdAt,
   imageUrl,
 }) => {
+  const [isViewerOpen, setIsViewerOpen] = useState(false);
+  const openImageViewer = useCallback(() => {
+    setIsViewerOpen(true);
+  }, []);
+
+  const closeImageViewer = () => {
+    setIsViewerOpen(false);
+  };
   return (
     <div
       key={_id}
@@ -29,18 +38,31 @@ const Post: React.FC<PostProps> = ({
     >
       <div className="pt-2 pl-4 bg-ultra-violet rounded-t-lg ">
         <div className="w-full flex justify-start ">
-          {imageUrl && <img src={imageUrl} className="h-40 mb-4" />}
+          {imageUrl && (
+            <img
+              src={imageUrl}
+              onClick={() => openImageViewer()}
+              className="h-40 mb-4"
+            />
+          )}
+          {isViewerOpen && (
+            <ImageViewer
+              src={[imageUrl]}
+              disableScroll={false}
+              closeOnClickOutside={true}
+              onClose={closeImageViewer}
+            />
+          )}
         </div>
-        <div className="flex flex-row w-full justify-between rounded-t-lg bg-ultra-violet pt-2 pb-2  pr-4">
+        <div className="flex flex-row w-full justify-between rounded-t-lg bg-ultra-violet pt-2 pb-2  pr-2">
           <span className=" text-lg font-bold text-teal-900 ">{title} </span>
 
           <div className="flex flex-col">
-            <span className="text-sm text-white bg-gray-700 px-2 rounded-full">
-              {username}
-            </span>
-            <span className="text-xs text-mint-green font-thin text-center ">
-              {getReadableTime(createdAt)}
-            </span>
+            <div className="flex flex-row justify-end">
+              <span className="text-xs text-rich-black/75 px-2 border-2 border-rich-black font-bold w-fit whitespace-nowrap  ">
+                {username}
+              </span>
+            </div>
           </div>
         </div>
       </div>

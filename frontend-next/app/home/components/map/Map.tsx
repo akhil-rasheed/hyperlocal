@@ -39,7 +39,7 @@ const MapContainer = ({ posts }) => {
     fillOpacity: 0.35,
     editable: false,
     visible: true,
-    radius: 2000,
+    radius: 5000,
     zIndex: 1,
     mapTypeControl: false,
     scaleControl: false,

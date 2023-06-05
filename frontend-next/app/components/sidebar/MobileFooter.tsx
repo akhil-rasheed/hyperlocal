@@ -7,6 +7,7 @@ import { User } from "@prisma/client";
 import { useMemo } from "react";
 import { usePathname } from "next/navigation";
 import { GrMapLocation, GrAddCircle } from "react-icons/gr";
+import { TbLocation } from "react-icons/tb";
 import { HiArrowLeftOnRectangle } from "react-icons/hi2";
 import { MdAddCircle } from "react-icons/md";
 import { signOut } from "next-auth/react";
@@ -24,7 +25,7 @@ const MobileFooter: React.FC<MobileFooterProps> = ({ currentUser }) => {
       {
         label: "Nearby",
         href: "/home",
-        icon: GrMapLocation,
+        icon: TbLocation,
         active: pathname === "/nearby",
       },
       {
@@ -65,7 +66,7 @@ const MobileFooter: React.FC<MobileFooterProps> = ({ currentUser }) => {
         flex 
         px-4
         items-center 
-        bg-ultra-violet
+        bg-black
         border-t-[1px] 
         lg:hidden
       "

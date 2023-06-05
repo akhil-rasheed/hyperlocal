@@ -14,7 +14,7 @@ interface Post {
 const Nearby = ({ posts }) => {
   console.log("being recieved", posts);
   return (
-    <div className="px-8 mb-10 justify-center items-center w-full bg-[#262730] overflow-y-scroll scrollbar-hide ">
+    <div className="px-8 mb-10 justify-center items-center w-full bg-rich-black overflow-y-scroll scrollbar-hide ">
       {posts.map((post) => {
         return (
           <PostC

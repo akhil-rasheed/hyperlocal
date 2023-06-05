@@ -1,85 +1,38 @@
-function formatDate(date: Date, includeOrdinal: boolean = false): string {
-  const options: Intl.DateTimeFormatOptions = {
-    weekday: includeOrdinal ? undefined : "long",
-    day: includeOrdinal ? "numeric" : undefined,
-    month: includeOrdinal ? "long" : undefined,
-    hour: "numeric",
-    minute: "numeric",
-  };
+export default function formatCreatedAt(createdAt): string {
+  const currentDate = new Date();
+  const createdAtDate = new Date(createdAt);
+  const diff = currentDate.getTime() - createdAtDate.getTime();
+  const diffMinutes = Math.floor(diff / (1000 * 60));
+  const diffHours = Math.floor(diff / (1000 * 60 * 60));
+  const diffDays = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const diffWeeks = Math.floor(diff / (1000 * 60 * 60 * 24 * 7));
 
-  const formatter = new Intl.DateTimeFormat(undefined, options);
-  const formattedDate = formatter.format(date);
-
-  if (includeOrdinal) {
-    return formattedDate.replace(/\d+/, (match) =>
-      addOrdinalSuffix(parseInt(match, 10))
-    );
+  if (diffMinutes < 60) {
+    return `${diffMinutes} minute${diffMinutes === 1 ? "" : "s"} ago`;
+  } else if (diffHours < 24) {
+    return `${diffHours} hour${diffHours === 1 ? "" : "s"} ago`;
+  } else if (diffDays === 1) {
+    const formattedTime = createdAtDate.toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+    return `Yesterday at ${formattedTime}`;
+  } else if (diffWeeks === 0) {
+    const formattedDate = createdAtDate.toLocaleDateString(undefined, {
+      weekday: "long",
+    });
+    const formattedTime = createdAtDate.toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+    return `${formattedDate} at ${formattedTime}`;
   } else {
+    const formattedDate = createdAtDate.toLocaleDateString(undefined, {
+      day: "numeric",
+      month: "long",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
     return formattedDate;
   }
-}
-
-function addOrdinalSuffix(number: number): string {
-  const suffixes = ["th", "st", "nd", "rd"];
-  const relevantDigits = number % 100;
-  const suffix =
-    suffixes[(relevantDigits - 20) % 10] ||
-    suffixes[relevantDigits] ||
-    suffixes[0];
-  return number + suffix;
-}
-
-export default function getReadableTime(isoTimestamp: Date): string {
-  const date = new Date(isoTimestamp);
-  const now = new Date();
-
-  // Calculate the time difference in milliseconds
-  const timeDifference = now.getTime() - date.getTime();
-
-  // Check if the timestamp is within the last hour
-  if (timeDifference < 60 * 60 * 1000) {
-    const minutes = Math.floor(timeDifference / (1000 * 60));
-    return minutes <= 1
-      ? "Just now 🔥"
-      : `${minutes} minute${minutes !== 1 ? "s" : ""} ago`;
-  }
-
-  // Check if the timestamp is within the last day
-  if (timeDifference < 24 * 60 * 60 * 1000) {
-    const hours = Math.floor(timeDifference / (1000 * 60 * 60));
-    return `${hours} hour${hours !== 1 ? "s" : ""} ago`;
-  }
-
-  // Check if the timestamp is from yesterday
-  const yesterday = new Date(now);
-  yesterday.setDate(now.getDate() - 1);
-  if (
-    date.getDate() === yesterday.getDate() &&
-    date.getMonth() === yesterday.getMonth() &&
-    date.getFullYear() === yesterday.getFullYear()
-  ) {
-    const formattedTime = formatDate(date);
-    return `Yesterday at ${formattedTime}`;
-  }
-
-  // Check if the timestamp is within the current week
-  const daysOfWeek = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
-  if (timeDifference < 7 * 24 * 60 * 60 * 1000) {
-    const dayOfWeek = daysOfWeek[date.getUTCDay()];
-    const formattedTime = formatDate(date);
-    return `${formattedTime}`;
-  }
-
-  // Display the date in the format "18th March at hh:mm"
-  const formattedDate = formatDate(date, true);
-  const formattedTime = formatDate(date);
-  return `${formattedDate} at ${formattedTime}`;
 }

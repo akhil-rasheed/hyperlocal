@@ -34,20 +34,21 @@ const MobileItem: React.FC<MobileItemProps> = ({
         leading-6 
         font-semibold 
         w-full 
-        justify-center 
-        p-4 
+        justify-between 
+        px-3
+        overflow-y-visible
         text-gray-500 
         hover:text-black 
         hover:bg-black-300
          flex-col
-      `,
-        active && " text-black"
+      `
       )}
+      style={{ color: "#cb8c26" }}
     >
       {href === "/post" ? (
-        <Icon color="black" className="h-9 w-9 text-rich-black" />
+        <Icon className="h-20 w-20" />
       ) : (
-        <Icon color="black" className="h-6 w-6" />
+        <Icon className="h-9 w-9" />
       )}
       {/* <p className="text-xs">{href}</p> */}
     </Link>
