@@ -31,6 +31,7 @@ const MapContainer = ({ posts }) => {
   const mapsApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
   const options = {
+    mapId: "8030df2e9407d0b2",
     zoomControl: false,
     strokeColor: "#21afdd",
     strokeOpacity: 0.8,
@@ -48,7 +49,11 @@ const MapContainer = ({ posts }) => {
     fullscreenControl: false,
   };
   return (
-    <LoadScript googleMapsApiKey={mapsApiKey!}>
+    <LoadScript
+      googleMapsApiKey={mapsApiKey!}
+      mapIds={["8030df2e9407d0b2"]}
+      id="8030df2e9407d0b2"
+    >
       <GoogleMap
         mapContainerStyle={mapStyles}
         zoom={14}
