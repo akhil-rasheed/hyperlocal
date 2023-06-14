@@ -1,29 +1,43 @@
-import { ImArrowUp } from "react-icons/im";
+// import { ImArrowUp } from "react-icons/im";
 import { BiUpvote } from "react-icons/bi";
 import { BiDownvote } from "react-icons/bi";
-import { ImArrowDown } from "react-icons/im";
+// import { ImArrowDown } from "react-icons/im";
 import Image from "next/image";
 import getReadableTime from "@/app/actions/getReadableTime";
 import ImageViewer from "react-simple-image-viewer";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
+import { User } from "@prisma/client";
+import axios from "axios";
 interface PostProps {
+  user: User,
   _id: number;
   username: string;
   desc: string;
   title: string;
   createdAt: Date;
   imageUrl: string;
+  upvotescount: number;
+  downvotescount: number;
+  upvotes: Array<string>;
+  downvotes: Array<string>;
+
 }
 
 const Post: React.FC<PostProps> = ({
+  user,
   _id,
   username,
   desc,
   title,
   createdAt,
   imageUrl,
+  upvotescount,
+  downvotescount
 }) => {
+
   const [isViewerOpen, setIsViewerOpen] = useState(false);
+  const [upvote, setUpvote] = useState(upvotescount);
+  const [downvote, setDownvote] = useState(downvotescount);
   const openImageViewer = useCallback(() => {
     setIsViewerOpen(true);
   }, []);
@@ -31,6 +45,35 @@ const Post: React.FC<PostProps> = ({
   const closeImageViewer = () => {
     setIsViewerOpen(false);
   };
+
+
+  const upVote = () => {
+
+    const reqObj = { "userId": user.id.toString() }
+    axios.put(`http://localhost:8080/api/${_id}/upvote`, reqObj).then(function (response) {
+      setUpvote(response.data.data.upvotescount);
+      setDownvote(response.data.data.downvotescount);
+    })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+
+
+  };
+  const downVote = () => {
+
+    const reqObj = { "userId": user.id.toString() }
+    axios.put(`http://localhost:8080/api/${_id}/downvote`, reqObj).then(function (response) {
+      setDownvote(response.data.data.downvotescount);
+      setUpvote(response.data.data.upvotescount);
+    })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+
   return (
     <div
       key={_id}
@@ -70,12 +113,12 @@ const Post: React.FC<PostProps> = ({
       <div className="flex flex-row px-4 py-2 items-center">
         <div className="flex flex-col">
           {/* <ImArrowUp color="black" /> */}
-          <BiUpvote color="gray" />
+          <BiUpvote color="gray" onClick={upVote} />
           <span className="text-sm font-bold text-center text-black/75">
-            {Math.floor(Math.random() * 30)}
+            {upvote - downvote}
           </span>
           {/* <ImArrowDown color="black" /> */}
-          <BiDownvote color="gray" />
+          <BiDownvote color="gray" onClick={downVote} />
         </div>
         <div className="text-sm ml-4 text-black/75 x ">{desc}</div>
       </div>

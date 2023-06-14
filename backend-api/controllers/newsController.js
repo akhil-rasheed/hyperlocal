@@ -114,8 +114,9 @@ export const deleteNews = async (req, res) => {
 
 export const upvotesNews = async (req, res) => {
   try {
+    console.log(req.body);
     const news = await newsModel.findById(req.params.id);
-    if (!news.downvotes.includes(req.body.userId)) {
+    if (news.downvotes.includes(req.body.userId)) {
       await news.updateOne({
         $inc: {
           upvotescount: 1,
@@ -125,15 +126,45 @@ export const upvotesNews = async (req, res) => {
         $pull: { downvotes: req.body.userId },
       });
 
-      res
-        .status(200)
-        .json("The post has been upvoted and removed from downvotes");
+      res.status(200).send({
+        success: true,
+        data: {
+          upvotescount: news.upvotescount + 1,
+          downvotescount: news.downvotescount - 1,
+        },
+        message: "The post has been upvoted and removed from downvotes",
+      });
+    } else if (news.upvotes.includes(req.body.userId)) {
+      await news.updateOne({
+        $inc: {
+          upvotescount: -1,
+        },
+        $pull: { upvotes: req.body.userId },
+      });
+      res.status(200).send({
+        message: "The post has been removed from upvotes",
+        success: true,
+        data: {
+          upvotescount: news.upvotescount - 1,
+          downvotescount: news.downvotescount,
+        },
+      });
     } else {
       await news.updateOne({
-        $inc: { upvotescount: 1 },
         $push: { upvotes: req.body.userId },
       });
-      res.status(200).json("The post has been upvoted");
+      await news.updateOne({
+        $inc: { upvotescount: 1 },
+      });
+
+      res.status(200).send({
+        message: "The post has been upvoted",
+        success: true,
+        data: {
+          upvotescount: news.upvotescount + 1,
+          downvotescount: news.downvotescount,
+        },
+      });
     }
   } catch (error) {
     res.status(400).send(error);
@@ -143,24 +174,61 @@ export const upvotesNews = async (req, res) => {
 export const downvotesNews = async (req, res) => {
   try {
     const news = await newsModel.findById(req.params.id);
-    if (!news.upvotes.includes(req.body.userId)) {
+    if (news.upvotes.includes(req.body.userId)) {
       await news.updateOne({
-        $pull: { upvotes: req.body.userId },
+       
         $inc: {
           upvotescount: -1,
           downvotescount: 1,
         },
         $push: { downvotes: req.body.userId },
+        $pull: { upvotes: req.body.userId },
       });
-      res
-        .status(200)
-        .json("The post has been downvoted and removed from upvotes");
-    } else {
+      res.status(200).send({
+        message: "The post has been downvoted and removed from upvotes",
+        success: true,
+        data: {
+          downvotescount: news.downvotescount + 1,
+          upvotescount: news.upvotescount - 1,
+        },
+      });
+    }  else if (news.downvotes.includes(req.body.userId)) {
       await news.updateOne({
-        $pull: { downvotes: req.body.userId },
-        $inc: { upcount: -1 },
+        $inc: {
+          downvotescount: -1,
+        },
+       
       });
-      res.status(200).json("The post has been downvoted");
+      await news.updateOne({
+       
+        $pull: { downvotes: req.body.userId }
+      });
+      res.status(200).send({
+        message: "The post has been removed from downvotes",
+        success: true,
+        data: {
+          downvotescount: news.downvotescount - 1,
+          upvotescount: news.upvotescount ,
+        },
+      });
+    } else {
+      
+      await news.updateOne({
+        $push: { downvotes: req.body.userId },
+        
+      });
+      await news.updateOne({
+        $inc: { downvotescount: +1 },
+        
+      });
+      res.status(200).send({
+        message: "The post has been downvoted",
+        success: true,
+        data:{
+          downvotescount: news.downvotescount + 1,
+          upvotescount: news.upvotescount,
+        },
+      });
     }
   } catch (error) {
     res.status(400).send(error);

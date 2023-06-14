@@ -2,4 +2,5 @@ node_modules
 ~/.env
 .env
 /frontend-next/.env
+/frontend-next/.env.local
 ~/node_modules

@@ -43,9 +43,9 @@ newsRouter.put("/:id", requireSignIn, updateNews);
 newsRouter.delete("/:id", requireSignIn, deleteNews);
 
 //Api to upvote a news post
-newsRouter.put("/:id/upvote", requireSignIn, upvotesNews);
+newsRouter.put("/:id/upvote", upvotesNews);
 
 //Api to downvote a newspost
-newsRouter.put("/:id/downvote", requireSignIn, downvotesNews);
+newsRouter.put("/:id/downvote", downvotesNews);
 
 export default newsRouter;
