@@ -50,7 +50,7 @@ const Post: React.FC<PostProps> = ({
   const upVote = () => {
 
     const reqObj = { "userId": user.id.toString() }
-    axios.put(`http://localhost:8080/api/${_id}/upvote`, reqObj).then(function (response) {
+    axios.put(`https://hyperlocal-backend.fly.dev/api/${_id}/upvote`, reqObj).then(function (response) {
       setUpvote(response.data.data.upvotescount);
       setDownvote(response.data.data.downvotescount);
     })
@@ -64,7 +64,7 @@ const Post: React.FC<PostProps> = ({
   const downVote = () => {
 
     const reqObj = { "userId": user.id.toString() }
-    axios.put(`http://localhost:8080/api/${_id}/downvote`, reqObj).then(function (response) {
+    axios.put(`https://hyperlocal-backend.fly.dev/api/${_id}/downvote`, reqObj).then(function (response) {
       setDownvote(response.data.data.downvotescount);
       setUpvote(response.data.data.upvotescount);
     })
