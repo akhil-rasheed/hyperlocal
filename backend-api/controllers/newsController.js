@@ -41,9 +41,11 @@ export const createNews = async (req, res) => {
 
 export const NewsNearBy = async (req, res) => {
   try {
-    const latitude = req.body.latitude;
-    const longitude = req.body.longitude;
-    const distWithin = req.body.distWithin * parseFloat(0.621371);
+    console.log(req.body)
+    const latitude = req.query.latitude;
+    const longitude = req.query.longitude;
+    const distWithin = req.query.distWithin * parseFloat(0.621371);
+    console.log(latitude);
     const nearBynews = await newsModel.aggregate([
       {
         $geoNear: {

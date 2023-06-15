@@ -31,6 +31,8 @@ const Post: React.FC<PostProps> = ({
   title,
   createdAt,
   imageUrl,
+  upvotes,
+  downvotes,
   upvotescount,
   downvotescount
 }) => {
@@ -38,6 +40,19 @@ const Post: React.FC<PostProps> = ({
   const [isViewerOpen, setIsViewerOpen] = useState(false);
   const [upvote, setUpvote] = useState(upvotescount);
   const [downvote, setDownvote] = useState(downvotescount);
+  const [upvoted, setUpvoted] = useState(false);
+  const [downvoted, setDownvoted] = useState(false);
+
+  useEffect(() => {
+    const userId = user.id.toString();
+    if (upvotes.includes(userId)) {
+      setUpvoted(true);
+    }
+    if (downvotes.includes(userId)) {
+      setDownvoted(true);
+    }
+  }, []);
+
   const openImageViewer = useCallback(() => {
     setIsViewerOpen(true);
   }, []);
@@ -112,12 +127,13 @@ const Post: React.FC<PostProps> = ({
 
       <div className="flex flex-row px-4 py-2 items-center">
         <div className="flex flex-col">
-          {/* <ImArrowUp color="black" /> */}
+
+          {/* <ImArrowUp color="black" onClick={upVote}/> */}
           <BiUpvote color="gray" onClick={upVote} />
           <span className="text-sm font-bold text-center text-black/75">
             {upvote - downvote}
           </span>
-          {/* <ImArrowDown color="black" /> */}
+          {/* <ImArrowDown color="black" onClick={downVote} /> */}
           <BiDownvote color="gray" onClick={downVote} />
         </div>
         <div className="text-sm ml-4 text-black/75 x ">{desc}</div>

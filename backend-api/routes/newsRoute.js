@@ -28,12 +28,13 @@ const newsRouter = express();
 newsRouter.use(bodyParser.json());
 newsRouter.use(bodyParser.urlencoded({ extended: true }));
 
-//Api to create news
+//Api to getAll nearby news
 newsRouter.get("/getAll", allNews);
 
+//Api to create news
 newsRouter.post("/post-news", upload.single("image"), createNews);
 
-//Api to getAll nearby news
+
 newsRouter.get("/nearBy-news", NewsNearBy);
 
 //Api to update a single news post
