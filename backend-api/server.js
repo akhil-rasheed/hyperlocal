@@ -8,7 +8,7 @@ import routes from "./routes/routes.js";
 import newsRoutes from "./routes/newsRoute.js";
 import connectDB from "./config/db.js";
 import authRoutes from "./routes/authRoute.js";
-
+import communityRouter from "./routes/communityRoute.js";
 //configure env
 dotenv.config();
 
@@ -34,6 +34,7 @@ app.use("/uploads", express.static("uploads"));
 
 //new routes
 app.use("/api", newsRoutes);
+app.use("/api/community", communityRouter);
 
 //auth routes
 app.use("/api/v1/auth", authRoutes);

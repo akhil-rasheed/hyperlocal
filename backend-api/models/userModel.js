@@ -1,33 +1,23 @@
 import mongoose from "mongoose";
 
-const userSchema = new mongoose.Schema(
+const userSchema = new mongoose.Schema({
+  _id: { type: mongoose.Schema.Types.ObjectId, auto: true },
+  email: { type: String, unique: true },
+  name: String,
+  emailVerified: Date,
+  image: String,
+  hashedPassword: String,
+  createdAt: { type: Date, default: Date.now },
+  updatedAt: { type: Date, default: Date.now },
+  accounts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Account" }],
+  communities: [
     {
-        name:{
-            type:String,
-            trim:true,
-            min:3,
-            maxlength:30,
-            required:true,
-            unique:true,
-        },
-        phone:{
-            type:String,
-            required:true,
-            unique:true,
-            min:10,
-            maxlength:10,
-        },
-        password:{
-            type:String,
-            required:true,
-            min:3,
-        },
-        role:{
-            type:Number,
-             default:0,
-        }
-    }
-    ,{timestamps:true}
-);
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Community",
+    },
+  ],
+});
 
-export default mongoose.model('users',userSchema);
+const User = mongoose.model("User", userSchema, "User");
+
+export default User;

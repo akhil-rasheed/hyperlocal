@@ -4,6 +4,8 @@ import colors from "colors";
 const connectDB = async () => {
   try {
     const conn = await mongoose.connect(process.env.DATABASE_URL);
+    const modelNames = Object.keys(mongoose.connection.models);
+
     console.log(
       `Connected to Mongodb Database ${conn.connection.host}`.bgGreen.white
     );

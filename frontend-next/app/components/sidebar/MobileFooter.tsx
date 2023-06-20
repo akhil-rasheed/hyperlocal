@@ -66,7 +66,7 @@ const MobileFooter: React.FC<MobileFooterProps> = ({ currentUser }) => {
         flex 
         px-4
         items-center 
-        bg-black
+        bg-ultra-violet
         border-t-[1px] 
         lg:hidden
       "

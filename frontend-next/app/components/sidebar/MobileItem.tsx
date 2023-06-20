@@ -43,10 +43,10 @@ const MobileItem: React.FC<MobileItemProps> = ({
          flex-col
       `
       )}
-      style={{ color: "#cb8c26" }}
+      style={{ color: "#000000" }}
     >
       {href === "/post" ? (
-        <Icon className="h-20 w-20" />
+        <Icon className="h-16 w-16" />
       ) : (
         <Icon className="h-9 w-9" />
       )}

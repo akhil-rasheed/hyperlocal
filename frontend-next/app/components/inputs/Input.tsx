@@ -12,6 +12,7 @@ interface InputProps {
   errors: FieldErrors;
   area?: boolean;
   disabled?: boolean;
+  dark?: boolean;
 }
 
 export const Input: React.FC<InputProps> = ({
@@ -23,11 +24,16 @@ export const Input: React.FC<InputProps> = ({
   errors,
   area,
   disabled,
+  dark,
 }) => {
   return (
     <div>
       <label
-        className="font-extralight block text-sm  text-white/75 leading-6"
+        className={clsx(
+          "font-extralight block text-sm leading-6",
+          dark && "text-black/75",
+          !dark && "text-whitee/75"
+        )}
         htmlFor={id}
       >
         {label}
@@ -40,7 +46,7 @@ export const Input: React.FC<InputProps> = ({
             disabled={disabled}
             {...register(id, { required })}
             className={clsx(
-              " font-extralight bg-white/75 form-input block w-full rounded-md border-0 py-1.5 text-rich-black shadow-sm  placeholder:text-gray-400 ring-gray-300 focus:ring-1 focus:ring-inset focus:ring-rich-black sm:text-sm sm:leading-6 ",
+              " bg-white/75 form-input block w-full rounded-md border-0 py-1.5 text-rich-black shadow-sm  placeholder:text-gray-400 ring-gray-300 focus:ring-1 focus:ring-inset focus:ring-rich-black sm:text-sm sm:leading-6 ",
               errors[id] && "focus:ring-rose-500",
               disabled && "opacity-50 cursor-default"
             )}

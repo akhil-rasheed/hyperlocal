@@ -1,5 +1,4 @@
 import newsModel from "../models/NewsModel.js";
-import userModel from "../models/userModel.js";
 
 export const createNews = async (req, res) => {
   try {
@@ -41,7 +40,7 @@ export const createNews = async (req, res) => {
 
 export const NewsNearBy = async (req, res) => {
   try {
-    console.log(req.body)
+    console.log(req.body);
     const latitude = req.query.latitude;
     const longitude = req.query.longitude;
     const distWithin = req.query.distWithin * parseFloat(0.621371);
@@ -178,7 +177,6 @@ export const downvotesNews = async (req, res) => {
     const news = await newsModel.findById(req.params.id);
     if (news.upvotes.includes(req.body.userId)) {
       await news.updateOne({
-       
         $inc: {
           upvotescount: -1,
           downvotescount: 1,
@@ -194,39 +192,34 @@ export const downvotesNews = async (req, res) => {
           upvotescount: news.upvotescount - 1,
         },
       });
-    }  else if (news.downvotes.includes(req.body.userId)) {
+    } else if (news.downvotes.includes(req.body.userId)) {
       await news.updateOne({
         $inc: {
           downvotescount: -1,
         },
-       
       });
       await news.updateOne({
-       
-        $pull: { downvotes: req.body.userId }
+        $pull: { downvotes: req.body.userId },
       });
       res.status(200).send({
         message: "The post has been removed from downvotes",
         success: true,
         data: {
           downvotescount: news.downvotescount - 1,
-          upvotescount: news.upvotescount ,
+          upvotescount: news.upvotescount,
         },
       });
     } else {
-      
       await news.updateOne({
         $push: { downvotes: req.body.userId },
-        
       });
       await news.updateOne({
         $inc: { downvotescount: +1 },
-        
       });
       res.status(200).send({
         message: "The post has been downvoted",
         success: true,
-        data:{
+        data: {
           downvotescount: news.downvotescount + 1,
           upvotescount: news.upvotescount,
         },
