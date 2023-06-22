@@ -4,12 +4,11 @@ import randomstring from "randomstring";
 
 // Function to create a new community
 async function createCommunity(req, res) {
-  const { communityName, desc, tags, hubLocation, userId } = req.body;
+  const { communityName, desc, locationObj, userId } = req.body;
 
   try {
     // Check if the user exists
     const user = await User.findById(userId);
-    console.log(user);
     if (!user) {
       return res.status(404).json({ error: "User not found." });
     }
@@ -24,8 +23,13 @@ async function createCommunity(req, res) {
     const community = new Community({
       communityName,
       desc,
-      tags,
-      hubLocation,
+      hubLocation: {
+        type: "Point",
+        coordinates: [
+          parseFloat(locationObj.long),
+          parseFloat(locationObj.lat),
+        ],
+      },
       joinCode,
       creatorId: userId,
       users: [userId],
@@ -77,4 +81,23 @@ async function joinCommunity(req, res) {
   }
 }
 
-export { createCommunity, joinCommunity };
+async function getCommunity(req, res) {
+  console.log("Getting Community");
+  const communityId = req.params.id;
+  console.log(communityId);
+
+  try {
+    // Find the community by ID
+    const community = await Community.findById(communityId);
+    if (!community) {
+      return res.status(404).json({ error: "Community not found." });
+    }
+
+    return res.status(200).json({ community });
+  } catch (error) {
+    console.error("Error fetching community:", error);
+    return res.status(500).json({ error: "Failed to fetch community." });
+  }
+}
+
+export { createCommunity, joinCommunity, getCommunity };

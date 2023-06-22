@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import getCurrentUser from "@/app/actions/getCurrentUser";
+import getCurrentUser from "@/app/actions/auth/getCurrentUser";
 import CommunityActionCard from "./components/CommunityActionCard";
 
 async function Community() {
@@ -10,7 +10,7 @@ async function Community() {
         Hyperlocal{" "}
         <span className="text-mint-green font-extralight">Communities</span>{" "}
       </p>
-      <CommunityActionCard />
+      <CommunityActionCard userId={currentUser?.id} user={currentUser} />
     </div>
   );
 }

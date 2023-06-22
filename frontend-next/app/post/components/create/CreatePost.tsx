@@ -68,10 +68,11 @@ const CreatePost: React.FC<CreatePostProps> = ({ user }) => {
   return (
     <div className=" w-full  lg:w-2/3 lg:m-10  rounded-md p-8 lg:p-10 bg-ultra-violet">
       <form className="space-y-6  text-white" onSubmit={handleSubmit(onSubmit)}>
-        <p className="text-white/75 font-bold text-3xl  ">Create a post...</p>
+        <p className="text-black font-bold text-3xl  ">Create a post...</p>
 
         <ImageUploader setFile={setFile} />
         <Input
+          dark
           id="title"
           label="Give your post a title!"
           type="text"
@@ -79,6 +80,7 @@ const CreatePost: React.FC<CreatePostProps> = ({ user }) => {
           errors={errors}
         />
         <Input
+          dark
           id="desc"
           label="Contents of your post"
           type="text"

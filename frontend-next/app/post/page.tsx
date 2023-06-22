@@ -1,7 +1,7 @@
 import React from "react";
 import EmptyState from "../components/EmptyState";
 import PostAction from "./components/create/PostAction";
-import getCurrentUser from "@/app/actions/getCurrentUser";
+import getCurrentUser from "@/app/actions/auth/getCurrentUser";
 
 async function Post() {
   const currentUser = await getCurrentUser();

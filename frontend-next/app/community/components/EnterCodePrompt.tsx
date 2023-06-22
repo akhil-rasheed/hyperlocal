@@ -1,9 +1,15 @@
 import React from "react";
 import { useState } from "react";
 import OtpInput from "react-otp-input";
+import joinCommunity from "@/app/actions/community/joinCommunity";
 
-function EnterCodePrompt({ setShowPopup }) {
+function EnterCodePrompt({ setShowPopup, userId }) {
   const [otp, setOtp] = useState("");
+
+  function submitCode() {
+    console.log(joinCommunity(otp, userId));
+  }
+
   return (
     <div className="popup fixed  w-80 bg-ultra-violet text-black rounded-xl z-20 p-4 font-bold text-xl text-center flex flex-col ">
       {/* Popup content */}
@@ -26,7 +32,10 @@ function EnterCodePrompt({ setShowPopup }) {
           renderSeparator={<span className="text-black/25 p-1"> </span>}
           renderInput={(props) => <input {...props} />}
         />
-        <button className="bg-black py-2 px-4 text-white rounded-xl text-lg ">
+        <button
+          onClick={submitCode}
+          className="bg-black py-2 px-4 text-white rounded-xl text-lg "
+        >
           Join
         </button>
       </div>

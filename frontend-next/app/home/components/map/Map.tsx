@@ -1,11 +1,18 @@
 "use client";
 import { useState, useEffect } from "react";
 import { GoogleMap, LoadScript, Marker, Circle } from "@react-google-maps/api";
+import { setUserLocation } from "@/store/store";
+import { useDispatch } from "react-redux";
 
 //useeffect hook to fetch location
 
 const MapContainer = ({ posts }) => {
+  const dispatch = useDispatch();
+
   const [center, setCenter] = useState({ lat: 0, lng: 0 });
+  const updateUserLocation = (lat, lng) => {
+    dispatch(setUserLocation(lat, lng));
+  };
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
@@ -13,6 +20,7 @@ const MapContainer = ({ posts }) => {
         lat: position.coords.latitude,
         lng: position.coords.longitude,
       });
+      updateUserLocation(position.coords.latitude, position.coords.longitude);
     });
   }, []);
 

@@ -1,7 +1,7 @@
 "use client";
 import Map from "../map/Map";
 import Nearby from "./Nearby";
-import getPosts from "../../../actions/getPosts";
+import getPosts from "../../../actions/post/getPosts";
 import { useEffect, useState } from "react";
 import { User } from "@prisma/client";
 import axios from "axios";

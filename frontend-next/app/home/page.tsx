@@ -2,7 +2,7 @@ import React from "react";
 import EmptyState from "../components/EmptyState";
 import Map from "./components/map/Map";
 import Nearby from "./components/nearby/Nearby";
-import getCurrentUser from "@/app/actions/getCurrentUser";
+import getCurrentUser from "@/app/actions/auth/getCurrentUser";
 import InteractiveViewer from "./components/nearby/InteractiveViewer";
 
 async function Home() {
