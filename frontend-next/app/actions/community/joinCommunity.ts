@@ -13,7 +13,7 @@ const joinCommunity = async (joinCode: String, userId: String) => {
         userId,
       }
     );
-    console.log(response);
+    return response.data.community;
   } catch (error) {
     console.log(error);
   }

@@ -1,5 +1,7 @@
 import Community from "../models/CommunityModel.js";
 import User from "../models/userModel.js";
+import news from "../models/NewsModel.js";
+
 import randomstring from "randomstring";
 
 // Function to create a new community
@@ -80,6 +82,21 @@ async function joinCommunity(req, res) {
     return res.status(500).json({ error: "Failed to join community." });
   }
 }
+async function getCommunityPosts(req, res) {
+  const communityId = req.params.communityId;
+
+  try {
+    // Find all posts with the specified community attribute
+    const posts = await news.find({ community: communityId });
+
+    return res.status(200).json({ posts });
+  } catch (error) {
+    console.error("Error fetching community posts:", error);
+    return res.status(500).json({ error: "Failed to fetch community posts." });
+  }
+}
+
+export { getCommunityPosts };
 
 async function getCommunity(req, res) {
   console.log("Getting Community");

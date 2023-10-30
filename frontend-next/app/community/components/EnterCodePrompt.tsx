@@ -2,12 +2,15 @@ import React from "react";
 import { useState } from "react";
 import OtpInput from "react-otp-input";
 import joinCommunity from "@/app/actions/community/joinCommunity";
+import { useRouter } from "next/navigation";
 
 function EnterCodePrompt({ setShowPopup, userId }) {
   const [otp, setOtp] = useState("");
+  const router = useRouter();
 
-  function submitCode() {
-    console.log(joinCommunity(otp, userId));
+  async function submitCode() {
+    const community = await joinCommunity(otp, userId);
+    router.push(`/community/view/${community._id}`);
   }
 
   return (

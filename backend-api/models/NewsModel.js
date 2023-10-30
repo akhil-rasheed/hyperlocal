@@ -16,10 +16,9 @@ const newsSchema = new mongoose.Schema(
       type: String,
       maxlength: 300,
     },
-
-    tags: {
-      type: Array,
-      default: [],
+    community: {
+      type: String,
+      required: false,
     },
     upvotes: {
       type: Array,

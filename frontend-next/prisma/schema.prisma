@@ -19,10 +19,8 @@ model User {
   hashedPassword String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  
+  communities String[]
   accounts Account[]
-  
-  
 }
 
 model Account {

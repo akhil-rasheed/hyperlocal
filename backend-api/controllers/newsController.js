@@ -19,6 +19,7 @@ export const createNews = async (req, res) => {
         username: req.body.name,
         title: req.body.title,
         desc: req.body.desc,
+        community: req.body.community,
         location: {
           type: "Point",
           coordinates: [
